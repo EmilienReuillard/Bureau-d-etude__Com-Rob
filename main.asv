@@ -22,17 +22,9 @@ ZetaAlpha = 0.7;
 A1 = [[-Zalpha/V, 1]
       [Malpha, Mq]];
   
-B1 = [ -Zalpha/V; 
-        Mdelta ];
+B1 = [ -Zalpha/V ; 
+    Mdelta ];
   
-C1 = [[-Aalpha/g, 0]
-      [0, 1]];
 
-D1 = [-Adelta;
-      0];
-  
-sys1 = ss(A1,B1,C1,D1);
-
-%Actuator
 
 
