@@ -18,6 +18,7 @@ ZetaAlpha = 0.7;
 
 %equations d'état
 %linear model
+% X = (x1 x2) = (aplha q) et Y = (y1 y2) = (nz q)
 
 A1 = [[-Zalpha/V, 1]
       [Malpha, Mq]];
@@ -34,5 +35,21 @@ D1 = [-Adelta;
 sys1 = ss(A1,B1,C1,D1);
 
 %Actuator
+% X = (deltaq deltaq_point) et Y = (x3 x4)
+% x_3 = δ_q = u_m
+
+A2 = [  [0, 1]
+        [-(wa*wa), -2*ZetaAlpha*wa]];
+    
+B2 = [  0;
+        -(wa*wa)];
+    
+C2 = [  [1 0]
+        [0 1]  ];
+    
+D2 = [0 ; 0];
+
+sys2 = ss(A2,B2,C2,D2);
+
 
 
