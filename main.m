@@ -1,6 +1,7 @@
-%Ceci est le fichier du BDE de Commande robuste
+%Ceci est le fichier du BDE de Commande robuste 
+% Colaborateurs : Emilien Reuillard Et Antonin Renoir
 
-%Q1 jj
+%Q1 
 %Constantes
 g = 9.81;
 a = 316.0561;
@@ -33,6 +34,7 @@ D1 = [-Adelta;
       0];
   
 sys1 = ss(A1,B1,C1,D1);
+
 
 %Actuator
 % X = (deltaq deltaq_point) et Y = (x3 x4)
