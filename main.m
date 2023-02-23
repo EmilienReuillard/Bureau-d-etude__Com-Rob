@@ -2,6 +2,8 @@
 % Colaborateurs : Emilien Reuillard Et Antonin Renoir
 
 %% Question 1.1: Flight dynamics (10%)
+
+%% Question 1.2: Model construction & analysis (10%)
 %Constantes
 g = 9.81;
 a = 316.0561;
@@ -53,5 +55,6 @@ D2 = [0 ; 0];
 
 G_a = ss(A2,B2,C2,D2);
 
+% G_am : 
 
 
