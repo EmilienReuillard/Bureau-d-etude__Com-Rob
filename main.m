@@ -33,7 +33,7 @@ C1 = [[-Aalpha/g, 0]
 D1 = [-Adelta;
       0];
   
-sys1 = ss(A1,B1,C1,D1);
+G_m = ss(A1,B1,C1,D1);
 
 
 %Actuator
@@ -51,7 +51,7 @@ C2 = [  [1 0]
     
 D2 = [0 ; 0];
 
-sys2 = ss(A2,B2,C2,D2);
+G_a = ss(A2,B2,C2,D2);
 
 
 
