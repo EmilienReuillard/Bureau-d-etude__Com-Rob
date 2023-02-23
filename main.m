@@ -1,6 +1,6 @@
 %Ceci est le fichier du BDE de Commande robuste
 
-%Q1
+%Q1 hh
 %Constantes
 g = 9.81;
 a = 316.0561;
