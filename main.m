@@ -1,12 +1,12 @@
 %Ceci est le fichier du BDE de Commande robuste 
 % Colaborateurs : Emilien Reuillard Et Antonin Renoir
 
-%Q1 
+%% Question 1.1: Flight dynamics (10%)
 %Constantes
 g = 9.81;
 a = 316.0561;
 M = 3;
-V = M; %parce que connard peut pas garder la meme letttre ptn
+V = M; 
 Zalpha = 1236.8918;
 Malpha = -300.4211;
 Mq = 0;
