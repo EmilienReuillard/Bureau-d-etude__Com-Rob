@@ -67,10 +67,18 @@ G_am = G_a_bis*G_m;
 %linearisation
 mdl = 'Airframe';
 open_system(mdl)
+
+opspec = operspec(mdl);
+opspec.States(5).Known = 1;
+opspec.States(5).x = 0.5;
+
+options = findopOptions('DisplayReport','off');
+op = findop(mdl,opspec,options);
+
 io(1) = linio('Airframe',1,'input');
 io(2) = linio('Airframe',1,'output')
 io(3) = linio('Airframe',2,'output')
-G_am = linearize(G_am, 'StateOrder');
+G_am = linearize(mdl,io,op);
 
 
 iopzmap(G_am)
