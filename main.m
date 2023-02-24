@@ -56,8 +56,9 @@ D2 = [0 ; 0];
 G_a = ss(A2,B2,C2,D2);
 
 % G_am : 
-
-G_am = linearize(G_a*G_m, IO)
+int = [1 0]
+G_am = G_a*int*G_m
+%G_am = linearize(G_a*G_m, IO)
 
 
 %% Question 2.1: Damping gain design (5%)
