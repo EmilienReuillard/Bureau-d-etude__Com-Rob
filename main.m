@@ -67,7 +67,7 @@ G_am = G_a_bis*G_m;
 %linearisation
 mdl = 'Airframe';
 open_system(mdl)
-% 
+
 % opspec = operspec(mdl);
 % opspec.States(5).Known = 1;
 % opspec.States(5).x = 0.5;
