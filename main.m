@@ -61,10 +61,16 @@ G_a = ss(A2,B2,C2,D2);
 G_a_bis = ss(A2,B2,C2bis,D2bis);
 
 % G_am : 
-int = [1 0];
+
 G_am = G_a_bis*G_m;
-G_am = linearize(G_am, IO);
-%G_am = linearize(G_a*G_m, IO)
+
+%linearisation
+mdl = 'Airframe';
+open_system(mdl)
+io(1) = linio('Airframe/G_am',1,'input');
+io(2) = linio('Airframe/G_am',1,'openoutput')
+G_am = linearize(mdl, io);
+
 
 iopzmap(G_am)
 
