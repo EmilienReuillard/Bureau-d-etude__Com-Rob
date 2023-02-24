@@ -63,8 +63,10 @@ G_a_bis = ss(A2,B2,C2bis,D2bis);
 % G_am : 
 int = [1 0];
 G_am = G_a_bis*G_m;
+G_am = linearize(G_am, IO);
 %G_am = linearize(G_a*G_m, IO)
 
+iopzmap(G_am)
 
 %% Question 2.1: Damping gain design (5%)
 
