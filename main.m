@@ -50,14 +50,19 @@ B2 = [  0;
     
 C2 = [  [1 0]
         [0 1]  ];
+
+C2bis = [ 1 0 ];
     
 D2 = [0 ; 0];
 
+D2bis = 0;
+
 G_a = ss(A2,B2,C2,D2);
+G_a_bis = ss(A2,B2,C2bis,D2bis);
 
 % G_am : 
-int = [1 0]
-G_am = G_a*int*G_m
+int = [1 0];
+G_am = G_a_bis*G_m;
 %G_am = linearize(G_a*G_m, IO)
 
 
