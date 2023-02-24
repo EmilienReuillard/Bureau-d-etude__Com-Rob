@@ -69,7 +69,7 @@ mdl = 'Airframe';
 open_system(mdl)
 io(1) = linio('Airframe/G_am',1,'input');
 io(2) = linio('Airframe/G_am',1,'output')
-io(2) = linio('Airframe',2,'output')
+io(2) = linio('Airframe/G_am',2,'output')
 G_am = linearize(mdl, io);
 
 
