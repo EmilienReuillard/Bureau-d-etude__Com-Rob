@@ -107,15 +107,15 @@ C_i = 0.2; %arbitraire
 
 %W1 et W2
 DC1 = 0;
-Freq1 = 4   ;
+Freq1 = 1;
 Mag1 = 3.01;   %dB
 HF1 = 100;      %rad/s 
 W1 = makeweight(DC1, [Freq1, Mag1], HF1);
 
 
 DC2 = 100;
-Freq2 = 4;
-Mag2 = 15;   %dB
+Freq2 = 15;
+Mag2 = 3.01;   %dB
 HF2 = 0;      %rad/s
 W2 = makeweight(DC2, [Freq2, Mag2], HF2);
 
@@ -125,18 +125,8 @@ legend
 grid on
 
 Ms = 0.5142;
-M1 = Ms;
-%Il faudrait jeter un coup d'oeil à A1/A2 et M1/M2
-
-% Apres 2h à chercher, je crois que A1 et A2, ainsi que M1 et M2 sont les 
-% constantes données au début. Donc là je viens de perdre 2h à chercher
-% pour rien parce que ce FDP n'est pas foutu de préciser ses putains de
-% varibales
 
 
-%% Question 3B.1: Reference model computation (5%)
-
-% on prendra un facteur d'ammortisement de 0.7
 
 
 
