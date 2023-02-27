@@ -61,33 +61,37 @@ G_a = ss(A2,B2,C2,D2);
 G_a_bis = ss(A2,B2,C2bis,D2bis);
 
 % G_am : 
-
 G_am = G_a_bis*G_m;
 
 %linearisation
 mdl = 'Airframe';
-open_system(mdl)
-% 
-% opspec = operspec(mdl);
-% opspec.States(5).Known = 1;
-% opspec.States(5).x = 0.5;
-% 
-% options = findopOptions('DisplayReport','off');
-% op = findop(mdl,opspec,options);
-% 
-% io(1) = linio('Airframe',1,'input');
-% io(2) = linio('Airframe',1,'output')
-% io(3) = linio('Airframe',2,'output')
-% G_am = linearize(mdl,io,op);
-
-op = operpoint(mdl);
-op.Inputs.u = 1;
-op.States.x = [0; 0; 0; 0];
-sys_lin = linearize(G_am, op);
-
+G_am_lin = linearize(mdl);
 iopzmap(G_am)
 
+%% à partir de là c'est du yahourt
+
 %% Question 2.1: Damping gain design (5%)
+
+
+
+
+K = 0.7;
+%obligé d'avoir un G_am linéarisé (SISO)
+C_q = rlocus(G_am_lin, K);
+
+%Après avoir modifié le simulink, j'ai crée un subsystem.
+%Il faut ensuite linéariser ce système pour avoir u en entrée et y1 en sortie.
+%Mais pour ça il faut avoir obligatoirement C_q
+
+%% Question 2.2: Scaling gain design (5%)
+
+C_sc = 1;
+G_cl_q_unsc = dcgain(ClosedLoop_Cq);
+G = G_cl_q_unsc;
+zpk(G);
+
+%% Question 2.3: Integral gain design (10%)
+
 
 
 
