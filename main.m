@@ -25,16 +25,16 @@ ZetaAlpha = 0.7;
 
 A1 = [[-Zalpha/V, 1]
       [Malpha, Mq]];
-  
+
 B1 = [ -Zalpha/V; 
         Mdelta ];
-  
+
 C1 = [[-Aalpha/g, 0]
       [0, 1]];
 
 D1 = [-Adelta;
       0];
-  
+
 G_m = ss(A1,B1,C1,D1);
 
 %Actuator
@@ -43,15 +43,15 @@ G_m = ss(A1,B1,C1,D1);
 
 A2 = [  [0, 1]
         [-(wa*wa), -2*ZetaAlpha*wa]];
-    
+
 B2 = [  0;
         -(wa*wa)];
-    
+
 C2 = [  [1 0]
         [0 1]  ];
 
 C2bis = [ 1 0 ];
-    
+
 D2 = [0 ; 0];
 
 D2bis = 0;
@@ -88,9 +88,43 @@ zpk(G_cl_q_unsc)
 %% Question 2.2: Scaling gain design (5%)
 
 C_sc = 1;
-G_cl_q_unsc.G = dcgain(G_cl_q_unsc);
+G = dcgain(G_cl_q_unsc);
 
 %% Question 2.3: Integral gain design (10%)
+
+C_i = 0.2; %arbitraire
+
+
+%% 3.	Mixed sensitivity design (60%)
+
+%% A.	Weighting filters (5%)
+
+%% Question 3A.1: Weighting filter discussion (2.5%)
+
+%Pas de code discuter de W1
+
+%% Question 3A.2: Weighting filter computation (2.5%)
+
+%W1 et W2
+DC1 = 0;
+Freq1 = 1;
+Mag1 = 3.01;   %dB
+HF1 = 100;      %rad/s  %Je crois que ça vaut Ms
+W1 = makeweight(DC1, [Freq1, Mag1], HF1);
+
+DC2 = 100;
+Freq2 = 15;
+Mag2 = 3.01;   %dB
+HF2 = 0;      %rad/s
+W2 = makeweight(DC2, [Freq2, Mag2], HF2);
+
+%Affichage
+bodemag(W1,W2)
+legend
+grid on
+
+
+
 
 
 
