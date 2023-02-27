@@ -27,9 +27,14 @@ Pour obtenir G_am nous avons changer la matrice C dans la representation d'état
 
 ![G_am](./Ressources/G_am.png)
 
+Nous avons créé le schéma sous simulink : Voir **Airframe.slx**
 
+Les formes zpk du système de u_cmd à y1, y2 respectivement sont (par exemple G_am_nz, G_am_q) sont : 
+![Les formes zpk du système de u_cmd à y1, y2 respectivement](./Ressources/formes_zpk_1.2.png)
 
-Voir Airframe.slx
+Voici les pôles et les zéros d'entrée / sortie avec la fonction isomap : 
+![isomap(G_am_lin)](./Ressources/isomap(G_am_lin).png)
+
 
 ## Sources 
 [1] : R. T. Reichert, “Dynamic scheduling of modern-robust-control autopilot designs for missi- les”, IEEE Control Systems, vol. 12, no. 5, pp. 35–42, 1992.

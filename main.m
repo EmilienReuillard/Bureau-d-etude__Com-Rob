@@ -67,6 +67,8 @@ G_am = G_a_bis*G_m;
 %linearisation
 mdl = 'Airframe';
 G_am_lin = linearize(mdl);
+%modèle zpk : 
+zpk(G_am_lin); 
 %iopzmap(G_am); %Affichage des zeros
 
 
