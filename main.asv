@@ -166,12 +166,5 @@ Td = tf([-(wd*wd)/zm , (wd*wd)],[1 , 2*ksid*wd , wd*wd ]);
 
 %% C.	Feedback controller design (hinfsyn) (20%)
 
-%% Question 3C.1: Controller design (10%)
-
-
-
-
-
-
 
 
