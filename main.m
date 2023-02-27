@@ -128,11 +128,6 @@ Ms = 0.5142;
 M1 = Ms;
 %Il faudrait jeter un coup d'oeil à A1/A2 et M1/M2
 
-% Apres 2h à chercher, je crois que A1 et A2, ainsi que M1 et M2 sont les 
-% constantes données au début. Donc là je viens de perdre 2h à chercher
-% pour rien parce que ce FDP n'est pas foutu de préciser ses putains de
-% varibales
-
 
 %% Question 3B.1: Reference model computation (5%)
 
