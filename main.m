@@ -3,6 +3,8 @@
 
 %% Question 1.1: Flight dynamics (10%)
 
+% Bien rédiger
+
 %% Question 1.2: Model construction & analysis (10%)
 %Constantes
 g = 9.81;
@@ -67,33 +69,32 @@ mdl = 'Airframe';
 G_am_lin = linearize(mdl);
 iopzmap(G_am);
 
-%% à partir de là c'est du yahourt
 
 %% Question 2.1: Damping gain design (5%)
+
+%approffondir un peu cette section
 
 % sisotool(-G_am(2,1))
 C_q = -0.0606;
 G_cl_q_unsc = linearize("ClosedLoop_Cq");
 G_cl_q_unsc.InputName="u_unsc";
-zpk(G_cl_q_unsc)
+zpk(G_cl_q_unsc);
 
-% K = 0.7;
-% obligé d'avoir un G_am linéarisé (SISO)
-% C_q = rlocus(G_am_lin, K);
-% 
-% Après avoir modifié le simulink, j'ai crée un subsystem.
-% Il faut ensuite linéariser ce système pour avoir u en entrée et y1 en sortie.
-% Mais pour ça il faut avoir obligatoirement C_q
 
 %% Question 2.2: Scaling gain design (5%)
 
 C_sc = 1;
 G = dcgain(G_cl_q_unsc);
 
+% expliquer le pour quoi du comment au niveau de la réponse dans le scope
+% simulink
+
 %% Question 2.3: Integral gain design (10%)
 
 C_i = 0.2; %arbitraire
 
+% Revenir dessus parce que pas assez détaillé
+% Notement les marges de phases
 
 %% 3.	Mixed sensitivity design (60%)
 
@@ -112,26 +113,31 @@ Mag1 = 3.01;   %dB
 HF1 = 100;      %rad/s 
 W1 = makeweight(DC1, [Freq1, Mag1], HF1);
 
-
 DC2 = 100;
 Freq2 = 4;
 Mag2 = 15;   %dB
 HF2 = 0;      %rad/s
 W2 = makeweight(DC2, [Freq2, Mag2], HF2);
 
-%Affichage
-bodemag(W1,W2)
-legend
-grid on
+% Affichage
+% bodemag(W1,W2)
+% legend
+% grid on
+
+%zpk(W1)
+%zpk(W2)
 
 Ms = 0.5142;
 M1 = Ms;
-%Il faudrait jeter un coup d'oeil à A1/A2 et M1/M2
+
+% Il faudrait jeter un coup d'oeil à A1/A2 et M1/M2
+% Les notations sont pas claires
 
 
 %% Question 3B.1: Reference model computation (5%)
 
 % on prendra un facteur d'ammortisement de 0.7
+% prendre les valeures dans le tableau
 
 
 
