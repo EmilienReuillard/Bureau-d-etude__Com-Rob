@@ -1,6 +1,9 @@
 %Ceci est le fichier du BDE de Commande robuste 
 % Colaborateurs : Emilien Reuillard Et Antonin Renoir
 
+clear all
+close all
+
 %% Question 1.1: Flight dynamics (10%)
 
 % Bien rédiger
@@ -25,52 +28,46 @@ s=tf("s");
 
 %equations d'état
 %linear model
-% X = (x1 x2) = (aplha q) et Y = (y1 y2) = (nz q)
 
 A1 = [[-Zalpha/V, 1]
       [Malpha, Mq]];
 
-B1 = [ -Zalpha/V; 
+B1 = [ -Zdelta/V; 
         Mdelta ];
 
 C1 = [[-Aalpha/g, 0]
       [0, 1]];
 
-D1 = [-Adelta;
+D1 = [-Adelta/g;
       0];
 
 G_m = ss(A1,B1,C1,D1);
 
 %Actuator
-% X = (deltaq deltaq_point) et Y = (x3 x4)
-% x_3 = δ_q = u_m
 
 A2 = [  [0, 1]
         [-(wa*wa), -2*ZetaAlpha*wa]];
 
 B2 = [  0;
-        -(wa*wa)];
+        (wa*wa) ];
 
 C2 = [  [1 0]
         [0 1]  ];
 
-C2bis = [ 1 0 ];
-
 D2 = [0 ; 0];
 
-D2bis = 0;
+% C2bis = [ 1 0 ];
+% D2bis = 0;
 
 G_a = ss(A2,B2,C2,D2);
-G_a_bis = ss(A2,B2,C2bis,D2bis);
 
+% G_a_bis = ss(A2,B2,C2bis,D2bis);   
 % G_am : 
-G_am = G_a_bis*G_m;
+% G_am = G_a_bis*G_m;
 
 %linearisation
-mdl = 'Airframe';
-G_am_lin = linearize(mdl);
-%modèle zpk : 
-zpk(G_am_lin); 
+G_am = linearize('Airframe');  %Utiliser celui ci quand on utilise G_am
+G_am_zpk = zpk(G_am); 
 %iopzmap(G_am); %Affichage des zeros
 
 
@@ -82,8 +79,8 @@ zpk(G_am_lin);
 C_q = -0.0606;
 G_cl_q_unsc = linearize("ClosedLoop_Cq");
 G_cl_q_unsc.InputName="u_unsc";
-zpk(G_cl_q_unsc);
-
+%zpk(G_cl_q_unsc);
+%zpk(G_am(1,1));
 
 %% Question 2.2: Scaling gain design (5%)
 
@@ -93,20 +90,22 @@ G=linearize("ClosedLoop_CqCsc");
 %zpk(G);
 %step(G);
 
-%Voir capture 2.2, on converge bien vers 0
+%Voir capture 2.2, on converge bien vers 0 mais oscille
 
 %% Question 2.3: Integral gain design (10%)
 
-C_i = 1;   %arbitraire
+% C_i = 1;   %arbitraire
+C_i = 8.0167e+05/C_sc;
 G_ol_nz = linearize("ClosedLoop_CqCscCi");
 zpk(G_ol_nz)
 C_i_sc = C_i*C_sc*(1/s);
-sisotool( G_ol_nz, 1, C_q, C_i_sc )
+%sisotool( G_ol_nz, 1, C_q, C_i_sc )
 
-C_i = 1;   %pour avoir une marge de phase de 60°
+%F = 8.0167e+05;   %pour avoir une marge de phase de 60°
+%F = C_i * C_sc
 
-% Revenir dessus parce que pas assez détaillé
-% Notement les marges de phases
+%expliquer la méthode, même si on a pas les résultats
+
 
 %% 3.	Mixed sensitivity design (60%)
 
@@ -130,7 +129,7 @@ W1 = makeweight(DC1, [Freq1, Mag1], HF1);
 DC2 = 100;
 Freq2 = 4;
 Mag2 = 15;   %dB
-HF2 = 0.1;      %rad/s
+HF2 = 0.1;   %rad/s
 W2 = makeweight(DC2, [Freq2, Mag2], HF2);
 
 W3 = W1;
@@ -156,8 +155,6 @@ A_2 = w_2/6069;
 
 M_1 = A_2;
 A_1 = M_2;
-
-
 
 
 %% Question 3B.1: Reference model computation (5%)

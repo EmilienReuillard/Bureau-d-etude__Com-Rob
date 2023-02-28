@@ -5,19 +5,19 @@ close all
 %%%%%%%%%%%%%% BDE 2023 %%%%%%%%%%%%%%
 
 %%% définition des variables
-g=9.80665; %standard gravity acceleration
-a=316.0561; %speed of sound at 6096m
-M=3; %Mach number
-Zalpha=1236.8918; %normal force derivative
-Malpha=-300.4211; %Pitch moment derivative
-Mq=0; %damping derivative
-Zdelta=108.1144; %control force derivative
-Mdelta=-131.3944; %control moment derivative
-Aalpha=1434.7783; %normal acceleration derivative
-Adelta=115.0529; %control acceleration derivative
-Walpha=150; %actuator natural frequency
-Zeta=0.7; %actuator damping ratio
-V=M*a; %airspeed
+g = 9.80665; %standard gravity acceleration
+a = 316.0561; %speed of sound at 6096m
+M = 3; %Mach number
+Zalpha = 1236.8918; %normal force derivative
+Malpha = -300.4211; %Pitch moment derivative
+Mq = 0; %damping derivative
+Zdelta = 108.1144; %control force derivative
+Mdelta = -131.3944; %control moment derivative
+Aalpha = 1434.7783; %normal acceleration derivative
+Adelta = 115.0529; %control acceleration derivative
+Walpha = 150; %actuator natural frequency
+Zeta = 0.7; %actuator damping ratio
+V = M*a; %airspeed
 
 s=tf("s");
 %% 

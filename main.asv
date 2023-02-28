@@ -1,6 +1,8 @@
 %Ceci est le fichier du BDE de Commande robuste 
 % Colaborateurs : Emilien Reuillard Et Antonin Renoir
 
+ce
+
 %% Question 1.1: Flight dynamics (10%)
 
 % Bien rédiger
@@ -10,7 +12,7 @@
 g = 9.81;
 a = 316.0561;
 M = 3;
-V = M; 
+V = M*a; 
 Zalpha = 1236.8918;
 Malpha = -300.4211;
 Mq = 0;
@@ -21,6 +23,8 @@ Adelta = 115.0529;
 wa = 150;
 ZetaAlpha = 0.7;
 
+s=tf("s");
+
 %equations d'état
 %linear model
 % X = (x1 x2) = (aplha q) et Y = (y1 y2) = (nz q)
@@ -28,13 +32,13 @@ ZetaAlpha = 0.7;
 A1 = [[-Zalpha/V, 1]
       [Malpha, Mq]];
 
-B1 = [ -Zalpha/V; 
+B1 = [ -Zdelta/V; 
         Mdelta ];
 
 C1 = [[-Aalpha/g, 0]
       [0, 1]];
 
-D1 = [-Adelta;
+D1 = [-Adelta/g;
       0];
 
 G_m = ss(A1,B1,C1,D1);
@@ -47,7 +51,7 @@ A2 = [  [0, 1]
         [-(wa*wa), -2*ZetaAlpha*wa]];
 
 B2 = [  0;
-        -(wa*wa)];
+        (wa*wa) ];
 
 C2 = [  [1 0]
         [0 1]  ];
@@ -59,16 +63,15 @@ D2 = [0 ; 0];
 D2bis = 0;
 
 G_a = ss(A2,B2,C2,D2);
-G_a_bis = ss(A2,B2,C2bis,D2bis);
+G_a_bis = ss(A2,B2,C2bis,D2bis);   
 
 % G_am : 
-G_am = G_a_bis*G_m;
+% G_am = G_a_bis*G_m;
 
 %linearisation
-mdl = 'Airframe';
-G_am_lin = linearize(mdl);
+G_am = linearize('Airframe');  %Utiliser celui ci quand on utilise G_am
 %modèle zpk : 
-zpk(G_am_lin); 
+G_am_zpk = zpk(G_am); 
 %iopzmap(G_am); %Affichage des zeros
 
 
@@ -80,20 +83,28 @@ zpk(G_am_lin);
 C_q = -0.0606;
 G_cl_q_unsc = linearize("ClosedLoop_Cq");
 G_cl_q_unsc.InputName="u_unsc";
-zpk(G_cl_q_unsc);
-
+%zpk(G_cl_q_unsc);
+%zpk(G_am(1,1));
 
 %% Question 2.2: Scaling gain design (5%)
 
-C_sc = 1;
-G = dcgain(G_cl_q_unsc);
+C_sc_inv = dcgain(G_cl_q_unsc);
+C_sc = 1/C_sc_inv;
+G=linearize("ClosedLoop_CqCsc");
+%zpk(G);
+%step(G);
 
-% expliquer le pour quoi du comment au niveau de la réponse dans le scope
-% simulink
+%Voir capture 2.2, on converge bien vers 0
 
 %% Question 2.3: Integral gain design (10%)
 
-C_i = 0.2; %arbitraire
+C_i = 1;   %arbitraire
+G_ol_nz = linearize("ClosedLoop_CqCscCi");
+zpk(G_ol_nz)
+C_i_sc = C_i*C_sc*(1/s);
+sisotool( G_ol_nz, 1, C_q, C_i_sc )
+
+%C_i = 1;   %pour avoir une marge de phase de 60°
 
 % Revenir dessus parce que pas assez détaillé
 % Notement les marges de phases
@@ -122,6 +133,8 @@ Freq2 = 4;
 Mag2 = 15;   %dB
 HF2 = 0.1;      %rad/s
 W2 = makeweight(DC2, [Freq2, Mag2], HF2);
+
+W3 = W1;
 
 % Affichage
 % bodemag(W1,W2)
@@ -164,14 +177,27 @@ Td = tf([-(wd*wd)/zm , (wd*wd)],[1 , 2*ksid*wd , wd*wd ]);
 
 % step(Td)
 
-% tester fmicon plus tard
+% tester fmicon plus tard pour avoir les trucs exacts
 
 %% C.	Feedback controller design (hinfsyn) (20%)
 
 %% Question 3C.1: Controller design (10%)
 
+F_f = 1;
 C_e = C_i*tf([0 1],[1 0]); %Ci * 1/s
-S0 = ()
+S0 = inv(1 + G*C_e);
+T0 = 1 - S0;
+
+P = [   [W1     ,-W1*G  ]
+        [0      ,W2     ]
+        [W3*Td  ,-W3*G  ]
+        [1      ,-G     ]  ];
+
+Twz = [W1*S0 ; W2*C_e*S0 ; W3*(Td-T0)];
+
+
+
+
 
 
 
