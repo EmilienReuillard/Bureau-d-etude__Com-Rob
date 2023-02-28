@@ -2,7 +2,7 @@
 
 ## Question 1.1: Flight dynamics (10%)
 
-Nous allons discuter du modèle linéaire nominal sans incertitude de ml'espace d'état de la dynamique de tangage du missile. 
+Nous allons discuter du modèle linéaire nominal sans incertitude de l'espace d'état de la dynamique de tangage du missile. 
 En effet le modèle du missile donné dans l'enoncé est purrement linéaire car il ne comporte pas de composantes non linéaires comme des termes au carré ou alors des fonctions non linéaire comme des cosinus ou des sinus (fonctions souvent présentes dans les systèmes non linéaires lorsque des angles interviennent)
 Plusieurs étapes sont néccéssaires pour obtenir le modèle linéaire à partir du modèle non-linéaire. 
 La première étape est la formulation des équations de la dynamique de tangage du missile : Les équations de la dynamique de tangage du missile sont des équations différentielles non linéaires qui décrivent l'évolution de l'angle de tangage, de la vitesse angulaire et d'autres variables liées au mouvement du missile. Ces équations peuvent être obtenues à partir des lois de la physique et de la dynamique du missile, en utilisant des modèles mathématiques appropriés. 

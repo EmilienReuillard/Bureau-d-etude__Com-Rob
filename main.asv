@@ -67,6 +67,8 @@ G_am = G_a_bis*G_m;
 %linearisation
 mdl = 'Airframe';
 G_am_lin = linearize(mdl);
+%modèle zpk : 
+zpk(G_am_lin); 
 %iopzmap(G_am); %Affichage des zeros
 
 
@@ -152,7 +154,7 @@ A_1 = M_2;
 %Création de la fonction de transfert
 % non-minimum phase zero ??????????????????
 
-% wd = 15;
+wd = 15;
 ksid = 0.7;
 zm = 50;    %valeur de y1 en boucle ouverte du missile
 % avec ces valeures, on a une réponse en 0.17s et un dépassement qui ne vas
@@ -165,6 +167,14 @@ Td = tf([-(wd*wd)/zm , (wd*wd)],[1 , 2*ksid*wd , wd*wd ]);
 % tester fmicon plus tard
 
 %% C.	Feedback controller design (hinfsyn) (20%)
+
+%% Question 3C.1: Controller design (10%)
+
+C_e = C_i*tf([0 1],[1 0]); %Ci * 1/s
+S0 = ()
+
+
+
 
 
 

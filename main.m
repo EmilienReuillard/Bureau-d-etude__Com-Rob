@@ -123,6 +123,8 @@ Mag2 = 15;   %dB
 HF2 = 0.1;      %rad/s
 W2 = makeweight(DC2, [Freq2, Mag2], HF2);
 
+W3 = W1;
+
 % Affichage
 % bodemag(W1,W2)
 % legend
@@ -154,7 +156,7 @@ A_1 = M_2;
 %Création de la fonction de transfert
 % non-minimum phase zero ??????????????????
 
-% wd = 15;
+wd = 15;
 ksid = 0.7;
 zm = 50;    %valeur de y1 en boucle ouverte du missile
 % avec ces valeures, on a une réponse en 0.17s et un dépassement qui ne vas
@@ -169,6 +171,18 @@ Td = tf([-(wd*wd)/zm , (wd*wd)],[1 , 2*ksid*wd , wd*wd ]);
 %% C.	Feedback controller design (hinfsyn) (20%)
 
 %% Question 3C.1: Controller design (10%)
+
+C_e = C_i*tf([0 1],[1 0]); %Ci * 1/s
+S0 = inv(1 + G*C_e);
+T0 = 1 - S0;
+
+P = [   [W1     ,-W1*G]
+        [0      ,W2]
+        [W3*Td  ,-W3*G]
+        [1      ,-G]  ];
+
+ncont = 1; 
+nmeas = 2;
 
 
 
