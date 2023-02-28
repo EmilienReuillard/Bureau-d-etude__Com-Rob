@@ -10,7 +10,7 @@
 g = 9.81;
 a = 316.0561;
 M = 3;
-V = M; 
+V = M*a; 
 Zalpha = 1236.8918;
 Malpha = -300.4211;
 Mq = 0;
@@ -20,6 +20,8 @@ Aalpha = 1434.7783;
 Adelta = 115.0529;
 wa = 150;
 ZetaAlpha = 0.7;
+
+s=tf("s");
 
 %equations d'état
 %linear model
@@ -85,15 +87,23 @@ zpk(G_cl_q_unsc);
 
 %% Question 2.2: Scaling gain design (5%)
 
-C_sc = 1;
-G = dcgain(G_cl_q_unsc);
+C_sc_inv = dcgain(G_cl_q_unsc);
+C_sc = 1/C_sc_inv;
+G=linearize("ClosedLoop_CqCsc");
+%zpk(G);
+%step(G);
 
-% expliquer le pour quoi du comment au niveau de la réponse dans le scope
-% simulink
+%Voir capture 2.2, on converge bien vers 0
 
 %% Question 2.3: Integral gain design (10%)
 
-C_i = 0.2; %arbitraire
+C_i = 1;   %arbitraire
+G_ol_nz = linearize("ClosedLoop_CqCscCi");
+zpk(G_ol_nz)
+C_i_sc = C_i*C_sc*(1/s);
+sisotool( G_ol_nz, 1, C_q, C_i_sc )
+
+C_i = 1;   %pour avoir une marge de phase de 60°
 
 % Revenir dessus parce que pas assez détaillé
 % Notement les marges de phases
@@ -177,10 +187,10 @@ C_e = C_i*tf([0 1],[1 0]); %Ci * 1/s
 S0 = inv(1 + G*C_e);
 T0 = 1 - S0;
 
-P = [   [W1     ,-W1*G]
-        [0      ,W2]
-        [W3*Td  ,-W3*G]
-        [1      ,-G]  ];
+P = [   [W1     ,-W1*G  ]
+        [0      ,W2     ]
+        [W3*Td  ,-W3*G  ]
+        [1      ,-G     ]  ];
 
 Twz = [W1*S0 ; W2*C_e*S0 ; W3*(Td-T0)];
 

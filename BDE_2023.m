@@ -1,6 +1,7 @@
 clear all
 close all
 
+
 %%%%%%%%%%%%%% BDE 2023 %%%%%%%%%%%%%%
 
 %%% définition des variables
@@ -18,6 +19,8 @@ Walpha=150; %actuator natural frequency
 Zeta=0.7; %actuator damping ratio
 V=M*a; %airspeed
 
+s=tf("s");
+%% 
 %%% définition du modèle du missile
 A_m=[-Zalpha/V 1 ; Malpha Mq];
 B_m=[-Zdelta/V ; Mdelta];
@@ -28,6 +31,7 @@ G_m.InputName="u_m";
 G_m.StateName=["x1","x2"];
 G_m.OutputName=["y1","y2"];
 save G_m;
+
 
 %%% définition du modèle de l'actionneur
 A_a=[0 1 ; -Walpha^2 -2*Zalpha*Walpha];
@@ -47,11 +51,30 @@ G_am=linearize("Airframe");
 %G_am_nz=tf(num(1,:),denom(1,:));
 %G_am_q=tf(num(2,:),denom(1,:));
 G_am_zpk=zpk(G_am);
-
+%% 
 %%% q 2.1
-%sisotool(-G_am(2,1))
+%sisotool(-G_am(2,1),1)
 C_q=-0.0606;
 G_cl_q_unsc=linearize("ClosedLoop_Cq");
 G_cl_q_unsc.InputName="u_unsc";
 zpk(G_cl_q_unsc)
+zpk(G_am(1,1))
+
+%% 
+%%% Q2.2
+
+C_sc_inv=dcgain(G_cl_q_unsc);
+C_sc=1/C_sc_inv;
+G=linearize("ClosedLoop_CqCsc");
+zpk(G);
+step(G);
+
+%% 
+%%% Q2.3
+
+C_i=1;
+G_ol_nz=linearize("ClosedLoop_CqCscCi");
+zpk(G_ol_nz)
+C_i_sc=C_i*C_sc*(1/s);
+sisotool(G_ol_nz,1,C_q,C_i_sc)
 
