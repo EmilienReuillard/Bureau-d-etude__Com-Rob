@@ -166,12 +166,13 @@ Td = tf([-(wd*wd)/zm , (wd*wd)],[1 , 2*ksid*wd , wd*wd ]);
 
 % step(Td)
 
-% tester fmicon plus tard
+% tester fmicon plus tard pour avoir les trucs exacts
 
 %% C.	Feedback controller design (hinfsyn) (20%)
 
 %% Question 3C.1: Controller design (10%)
 
+F_f = 1;
 C_e = C_i*tf([0 1],[1 0]); %Ci * 1/s
 S0 = inv(1 + G*C_e);
 T0 = 1 - S0;
@@ -181,8 +182,9 @@ P = [   [W1     ,-W1*G]
         [W3*Td  ,-W3*G]
         [1      ,-G]  ];
 
-ncont = 1; 
-nmeas = 2;
+Twz = [W1*S0 ; W2*C_e*S0 ; W3*(Td-T0)];
+
+
 
 
 
