@@ -41,6 +41,19 @@ Les composantes instables sont celles avec des parties réels positives.
 ## 2. Loopshaping(20%)
 ## Question 2.1: Damping gain design (5%)
 
+En se basant sur le ficgure numéro 3 on cherche le gain C_q tel que l'amortissement soit optimisé (0.7). Poour cela on utilise rlocus qui trace la position des pôle du système en faisant varier le gain c_q de 0 à l'infini. 
+On obtient les figures ci-après. 
+![rlocus(G_ol_q)](./Ressources/rlocus(G_ol_q).png)
+En zommant on voit que on peut placer le curser pour voir quel gain correspond à l'ammortissemnt de 0.7 : 
+![rlocus(G_ol_q)_zoom](./Ressources/rlocus(G_ol_q)_zoom.png)
+(Cependant avec le precision du graphique nous n'avojs pas réussi à nous placer au proche de 0.7). Donc nous avons estimé le gain souhaité égale à -0.16.
+
+Ensuite nous pouvons comparer les resultat obtenu avec la figure 3 reproduite : 
+- zpk(G_am(1,1)):
+![zpk(G_am(1,1))](./Ressources/zpk(G_am(1,1).png)
+- zpk(G_cl_q_unsc) :
+![zpk(G_cl_q_unsc)](./Ressources/zpk(G_cl_q_unsc).png)
+
 
 
 ## Sources 

@@ -57,6 +57,12 @@ D1 = [-Adelta/g;
       0];
 
 G_m = ss(A1,B1,C1,D1);
+% 
+% A_m=[-Zalpha/V 1 ; Malpha Mq];
+% B_m=[-Zdelta/V ; Mdelta];
+% C_m=[-Aalpha/g 0 ; 0 1];
+% D_m=[-Adelta/g; 0 ];
+% G_m=ss(A_m,B_m,C_m,D_m);
 
 G_m.InputName="u_m";
 G_m.StateName=["x1","x2"];
@@ -80,12 +86,20 @@ D2 = [0 ; 0];
 % D2bis = 0;
 
 G_a = ss(A2,B2,C2,D2);
+% 
+% A_a=[0 1 ; -Walpha^2 -2*Zalpha*Walpha];
+% B_a=[0; Walpha^2 ];
+% C_a=eye(2);
+% D_a=zeros(2,1);
+% G_a=ss(A_a,B_a,C_a,D_a);
 
 G_a.InputName="u_cmd";
 G_a.StateName=["x3","x4"];
 G_a.OutputName=["u_m","udot_m"];
 save G_a;
-
+% G_a_bis = ss(A2,B2,C2bis,D2bis);   
+% G_am : 
+% G_am = G_a_bis*G_m;
 
 %linearisation
 G_am = linearize('Airframe');  %Utiliser celui ci quand on utilise G_am
@@ -95,17 +109,17 @@ iopzmap(G_am); %Affichage des zeros
 
 %% Question 2.1: Damping gain design (5%)
 
-%approffondir un peu cette section (fait antonin)
+%approffondir un peu cette section
 
-G_ol_q = -G_am(2,1)
-%C_q = -0.0606;
-rlocus(G_ol_q);
-%avec rlocus on a que : C_q = -0.16;
-C_q = -0.16;
+% sisotool(-G_am(2,1))
+G_ol_q = G_am(2,1)
+C_q = -0.0606;
+r=rlocus(-G_ol_q,C_q)
 G_cl_q_unsc = linearize("ClosedLoop_Cq");
 G_cl_q_unsc.InputName="u_unsc";
-zpk(G_cl_q_unsc);
-zpk(G_am(1,1));
+
+%zpk(G_cl_q_unsc);
+%zpk(G_am(1,1));
 
 %% Question 2.2: Scaling gain design (5%)
 
@@ -122,7 +136,7 @@ G=linearize("ClosedLoop_CqCsc");
 % C_i = 1;   %arbitraire
 C_i = 8.0167e+05/C_sc;
 G_ol_nz = linearize("ClosedLoop_CqCscCi");
-zpk(G_ol_nz);
+zpk(G_ol_nz)
 C_i_sc = C_i*C_sc*(1/s);
 %sisotool( G_ol_nz, 1, C_q, C_i_sc )
 
