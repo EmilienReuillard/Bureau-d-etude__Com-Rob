@@ -10,7 +10,7 @@ close all
 
 %% Question 1.2: Model construction & analysis (10%)
 %Constantes
-g = 9.81;
+g = 9.80665;
 a = 316.0561;
 M = 3;
 V = M*a; 
@@ -23,6 +23,21 @@ Aalpha = 1434.7783;
 Adelta = 115.0529;
 wa = 150;
 ZetaAlpha = 0.7;
+
+%%% définition des variables
+g = 9.80665; %standard gravity acceleration
+a = 316.0561; %speed of sound at 6096m
+M = 3; %Mach number
+Zalpha = 1236.8918; %normal force derivative
+Malpha = -300.4211; %Pitch moment derivative
+Mq = 0; %damping derivative
+Zdelta = 108.1144; %control force derivative
+Mdelta = -131.3944; %control moment derivative
+Aalpha = 1434.7783; %normal acceleration derivative
+Adelta = 115.0529; %control acceleration derivative
+Walpha = 150; %actuator natural frequency
+Zeta = 0.7; %actuator damping ratio
+V = M*a; %airspeed
 
 s=tf("s");
 
@@ -42,6 +57,17 @@ D1 = [-Adelta/g;
       0];
 
 G_m = ss(A1,B1,C1,D1);
+% 
+% A_m=[-Zalpha/V 1 ; Malpha Mq];
+% B_m=[-Zdelta/V ; Mdelta];
+% C_m=[-Aalpha/g 0 ; 0 1];
+% D_m=[-Adelta/g; 0 ];
+% G_m=ss(A_m,B_m,C_m,D_m);
+
+G_m.InputName="u_m";
+G_m.StateName=["x1","x2"];
+G_m.OutputName=["y1","y2"];
+save G_m;
 
 %Actuator
 
@@ -60,7 +86,17 @@ D2 = [0 ; 0];
 % D2bis = 0;
 
 G_a = ss(A2,B2,C2,D2);
+% 
+% A_a=[0 1 ; -Walpha^2 -2*Zalpha*Walpha];
+% B_a=[0; Walpha^2 ];
+% C_a=eye(2);
+% D_a=zeros(2,1);
+% G_a=ss(A_a,B_a,C_a,D_a);
 
+G_a.InputName="u_cmd";
+G_a.StateName=["x3","x4"];
+G_a.OutputName=["u_m","udot_m"];
+save G_a;
 % G_a_bis = ss(A2,B2,C2bis,D2bis);   
 % G_am : 
 % G_am = G_a_bis*G_m;

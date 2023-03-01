@@ -34,7 +34,7 @@ Les formes zpk du système de u_cmd à y1, y2 respectivement sont (par exemple G
 
 Voici les pôles et les zéros d'entrée / sortie avec la fonction isomap : 
 ![isomap(G_am_lin)](./Ressources/isomap(G_am_lin).png)
-
+Il y a donc 5 points sur ce graphique. 3 zéros et 2 pôles. 
 
 ## Sources 
 [1] : R. T. Reichert, “Dynamic scheduling of modern-robust-control autopilot designs for missi- les”, IEEE Control Systems, vol. 12, no. 5, pp. 35–42, 1992.
