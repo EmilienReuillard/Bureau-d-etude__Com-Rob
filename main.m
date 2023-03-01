@@ -68,7 +68,7 @@ G_a = ss(A2,B2,C2,D2);
 %linearisation
 G_am = linearize('Airframe');  %Utiliser celui ci quand on utilise G_am
 G_am_zpk = zpk(G_am); 
-%iopzmap(G_am); %Affichage des zeros
+iopzmap(G_am); %Affichage des zeros
 
 
 %% Question 2.1: Damping gain design (5%)
@@ -184,10 +184,10 @@ C_e = C_i*tf([0 1],[1 0]); %Ci * 1/s
 S0 = inv(1 + G*C_e);
 T0 = 1 - S0;
 
-P = [   [W1     ,-W1*G  ]
-        [0      ,W2     ]
-        [W3*Td  ,-W3*G  ]
-        [1      ,-G     ]  ];
+P = [   [W1     ,   -W1*G  ]
+        [0      ,   W2     ]
+        [W3*Td  ,   -W3*G  ]
+        [1      ,   -G     ]  ];
 
 Twz = [W1*S0 ; W2*C_e*S0 ; W3*(Td-T0)];
 
