@@ -67,6 +67,9 @@ On récurpère l'inverse du gain C_sc avec la foncion dcgain sur G_cl_q_unsc. On
 
 On implemente le gain C_q et C_sc dans Simulink. Et on récupère *G* le système linéarisé qui prend en compte les deux gains précedants. On va alors vérifier la convergence de G : 
 
+![step(G)](./Ressources/step(G).png)
+
+On constate bien une convergence vers 1 en réponse au step. De plus le missile effectue une baisse dans la trajectoire du à la présence de zéros. 
 
 Pour verifier la 
 ## Sources 
