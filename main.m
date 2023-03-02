@@ -98,7 +98,7 @@ iopzmap(G_am); %Affichage des zeros
 %approffondir un peu cette section (fait antonin)
 
 G_ol_q = -G_am(2,1)
-%C_q = -0.0606;
+%C_q = -0.0266; % pour la courbe du haut
 rlocus(G_ol_q);
 %avec rlocus on a que : C_q = -0.16;
 C_q = -0.16;
