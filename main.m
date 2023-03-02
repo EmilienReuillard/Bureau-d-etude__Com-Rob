@@ -113,7 +113,7 @@ C_sc_inv = dcgain(G_cl_q_unsc);
 C_sc = 1/C_sc_inv;
 G=linearize("ClosedLoop_CqCsc");
 %zpk(G);
-%step(G);
+step(G);
 
 %Voir capture 2.2, on converge bien vers 0 mais oscille
 
