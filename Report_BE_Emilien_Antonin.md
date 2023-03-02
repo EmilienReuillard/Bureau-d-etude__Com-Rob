@@ -69,8 +69,16 @@ On implemente le gain C_q et C_sc dans Simulink. Et on récupère *G* le systèm
 
 ![step(G)](./Ressources/step(G).png)
 
-On constate bien une convergence vers 1 en réponse au step. De plus le missile effectue une baisse dans la trajectoire du à la présence de zéros. 
+On constate bien une convergence vers 1 en réponse au step. De plus le missile effectue une baisse dans la trajectoire du à la présence de zéros. Le temps de réponse est affiché et est 0.3. 
 
-Pour verifier la 
+On a ajouté une pertubation sur y2 avec un step à 1.2 secondes. Voila le résultat : 
+
+![Pertubation non rejeté](./Ressources/2.2_not_rejected.png)
+
+Ce que l'on peut voir c'est que la pertubation n'est pas rejetée par le système. En effet on voir bien la réponse de la figure *stee(G)* mais quand la pertubation survient la valeut final atteint 9. Ce n'est pas intérréssant et la question suivante va nous permettre de compenser cette pertubation. 
+
+## 
+
+
 ## Sources 
 [1] : R. T. Reichert, “Dynamic scheduling of modern-robust-control autopilot designs for missi- les”, IEEE Control Systems, vol. 12, no. 5, pp. 35–42, 1992.
