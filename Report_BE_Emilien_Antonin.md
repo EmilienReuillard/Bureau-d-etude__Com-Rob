@@ -77,7 +77,9 @@ On a ajouté une pertubation sur y2 avec un step à 1.2 secondes. Voila le résu
 
 Ce que l'on peut voir c'est que la pertubation n'est pas rejetée par le système. En effet on voir bien la réponse de la figure *stee(G)* mais quand la pertubation survient la valeut final atteint 9. Ce n'est pas intérréssant et la question suivante va nous permettre de compenser cette pertubation. 
 
-## 
+## Question 2.2: Scaling gain design (5%)
+
+
 
 
 ## Sources 
