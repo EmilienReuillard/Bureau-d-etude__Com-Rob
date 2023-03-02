@@ -122,11 +122,7 @@ G=linearize("ClosedLoop_CqCsc");
 % C_i = 1;   %arbitraire
 C_i = 8.0167e+05/C_sc;
 G_ol_nz = linearize("ClosedLoop_CqCscCi");
-<<<<<<< HEAD
-%zpk(G_ol_nz)
-=======
 zpk(G_ol_nz);
->>>>>>> 4e897f3a9632839c93b91741249aded02ca7a40a
 C_i_sc = C_i*C_sc*(1/s);
 %sisotool( G_ol_nz, 1, C_q, C_i_sc )
 
