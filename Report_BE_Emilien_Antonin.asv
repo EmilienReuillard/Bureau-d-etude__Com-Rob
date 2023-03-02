@@ -48,7 +48,7 @@ En zommant on voit que on peut placer le curser pour voir quel gain correspond �
 ![rlocus(G_ol_q)_zoom](./Ressources/rlocus(G_ol_q)_zoom.png)
 (Cependant avec le precision du graphique nous n'avojs pas réussi à nous placer au proche de 0.7). Donc nous avons estimé le gain souhaité égale à -0.16.
 
-Avec rlocus la courbe du haut nous fourni aussi une valeur de C_q pour un amortissement de 0.7 mais ce gain est compris en 0 et 0.041. Ainsi il nous a parru plus judicieux de choisir les courbes prochent de l'axe des abscisses pour rlocus.  
+Avec rlocus la courbe du haut nous fourni aussi une valeur de k en 
 
 Ensuite nous pouvons comparer les resultat obtenu avec la figure 3 reproduite : 
 - zpk(G_am(1,1)):
