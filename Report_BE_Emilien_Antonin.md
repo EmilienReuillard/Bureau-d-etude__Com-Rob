@@ -56,7 +56,18 @@ Ensuite nous pouvons comparer les resultat obtenu avec la figure 3 reproduite :
 - zpk(G_cl_q_unsc) :
 ![zpk(G_cl_q_unsc)](./Ressources/zpk(G_cl_q_unsc).png)
 
+Les zeros sont triviaux à trouver et les pôles peuvent être donnés avec la fonction *pole*. 
+
+![pole(G_am(1,1))](./Ressources/pole(G_am(1,1)).png)
+![pole(G_cl_q_unsc).png](./Ressources/pole(G_cl_q_unsc).png)
 
 
+## Question 2.2: Scaling gain design (5%)
+On récurpère l'inverse du gain C_sc avec la foncion dcgain sur G_cl_q_unsc. On le nomme C_sc_inv que l'on inverse pour avoir C_sc. 
+
+On implemente le gain C_q et C_sc dans Simulink. Et on récupère *G* le système linéarisé qui prend en compte les deux gains précedants. On va alors vérifier la convergence de G : 
+
+
+Pour verifier la 
 ## Sources 
 [1] : R. T. Reichert, “Dynamic scheduling of modern-robust-control autopilot designs for missi- les”, IEEE Control Systems, vol. 12, no. 5, pp. 35–42, 1992.
