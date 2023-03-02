@@ -119,6 +119,9 @@ step(G);
 
 %% Question 2.3: Integral gain design (10%)
 
+%C = 3.352e-05
+%F = 301.33
+
 % C_i = 1;   %arbitraire
 C_i = 8.0167e+05/C_sc;
 G_ol_nz = linearize("ClosedLoop_CqCscCi");
