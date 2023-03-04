@@ -1,6 +1,7 @@
 # BE Commande Robuste Emilien Reuillard et Antonin Renoir
 
-## Question 1.1: Flight dynamics (10%)
+## 1. Systemmodeling(20%)
+### Question 1.1: Flight dynamics (10%)
 
 Nous allons discuter du modèle linéaire nominal sans incertitude de l'espace d'état de la dynamique de tangage du missile. 
 En effet le modèle du missile donné dans l'enoncé est purrement linéaire car il ne comporte pas de composantes non linéaires comme des termes au carré ou alors des fonctions non linéaire comme des cosinus ou des sinus (fonctions souvent présentes dans les systèmes non linéaires lorsque des angles interviennent)
@@ -22,7 +23,7 @@ Sous Matlab /Simulmink :
 - La commande ss peut aussi servir à linéariser en créant le modèle d'état. 
 
 
-## Question 1.2: Model construction & analysis (10%)
+### Question 1.2: Model construction & analysis (10%)
 Pour obtenir G_am nous avons changer la matrice C dans la representation d'état de l'Actuator pour ne visualiser que x3. Ainsi la representation d'état de G_am est : 
 
 ![G_am](./Ressources/G_am.png)
@@ -39,7 +40,7 @@ Les composantes instables sont celles avec des parties réels positives.
 
 
 ## 2. Loopshaping(20%)
-## Question 2.1: Damping gain design (5%)
+### Question 2.1: Damping gain design (5%)
 
 En se basant sur le ficgure numéro 3 on cherche le gain C_q tel que l'amortissement soit optimisé (0.7). Poour cela on utilise rlocus qui trace la position des pôle du système en faisant varier le gain c_q de 0 à l'infini. 
 On obtient les figures ci-après. 
@@ -62,7 +63,7 @@ Les zeros sont triviaux à trouver et les pôles peuvent être donnés avec la f
 ![pole(G_cl_q_unsc).png](./Ressources/pole(G_cl_q_unsc).png)
 
 
-## Question 2.2: Scaling gain design (5%)
+### Question 2.2: Scaling gain design (5%)
 On récurpère l'inverse du gain C_sc avec la foncion dcgain sur G_cl_q_unsc. On le nomme C_sc_inv que l'on inverse pour avoir C_sc. 
 
 On implemente le gain C_q et C_sc dans Simulink. Et on récupère *G* le système linéarisé qui prend en compte les deux gains précedants. On va alors vérifier la convergence de G : 
@@ -77,7 +78,7 @@ On a ajouté une pertubation sur y2 avec un step à 1.2 secondes. Voila le résu
 
 Ce que l'on peut voir c'est que la pertubation n'est pas rejetée par le système. En effet on voir bien la réponse de la figure *stee(G)* mais quand la pertubation survient la valeut final atteint 9. Ce n'est pas intérréssant et la question suivante va nous permettre de compenser cette pertubation. 
 
-## Question 2.2: Scaling gain design (5%)
+### Question 2.3: Integral gain design (10%)
 
 Nous cherchons C_i. Pour cela nous utilisons sisotool qui va nous permettre de touver les gains adéquiates en changeant la marge de phase de manière manuelle. 
 
@@ -88,6 +89,34 @@ Nous modifions donc C puis F. Voir capture :
 **** Pas sur que l'on ai modifié C dans l'autre (premier test ) -> Emilien 
 
 Avec cette méthode nous avons trouvé une valeur de F qui nous convient puis nous avons eu C_i en divisant F par C_sc. Aisni nous avons F = 8.0167e+05 et donc C_i = 3,942e+7. 
+
+## 3.	Mixed sensitivity design (60%)
+### A.	Weighting filters (5%)
+#### Question 3A.1: Weighting filter discussion (2.5%)
+
+Dans le contexte de la commande de système par commande robuste, un filtre de pondération est un outil de conception qui permet de spécifier des poids pour différentes fréquences du signal de référence et du signal de perturbation. Ces poids sont ensuite utilisés pour pondérer les performances du système dans ces différentes fréquences lors de la conception du régulateur.
+
+Par exemple, dans un système de contrôle de vitesse de moteur, les basses fréquences peuvent être plus importantes que les hautes fréquences, car les variations de vitesse à basse fréquence peuvent affecter la stabilité du système.
+
+Autre exemple, si le système est soumis à des perturbations à haute fréquence, le filtre de pondération peut être utilisé pour réduire la sensibilité du système à ces perturbations.
+
+W1 est pour la sortie et W2 est pour le control. 
+On sait que : 
+ - en basse fréquence il n'y a pas de bruit.
+ - en hautes fréquences il n'y a pas de pertubations. 
+
+De plus avec ce qui est décrit slide 12 du cours on a ainsi W1 doit être un filtre passe haut et W2 doit être un filtre passe bas. 
+
+#### Question 3A.2: Weighting filter computation (2.5%)
+
+Pour determiner les deux filtres on utilise la fonction makeweight qui nous permet de modéliser un filtre grâce à ses paramètres. Grâce aux informations donnés dans l'énoncé on peut determiner les paramètres pour chaque filtre et les créer ensuite. 
+
+
+### B. Reference model (5%)
+#### Question 3B.1: Reference model computation (5%)
+
+### %% C.	Feedback controller design (hinfsyn) (20%)
+#### Question 3C.1: Controller design (10%)
 
 
 ## Sources 
