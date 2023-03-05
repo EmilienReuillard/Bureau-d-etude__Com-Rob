@@ -111,13 +111,20 @@ De plus avec ce qui est décrit slide 12 du cours on a ainsi W1 doit être un fi
 
 Pour determiner les deux filtres on utilise la fonction makeweight qui nous permet de modéliser un filtre grâce à ses paramètres. Grâce aux informations donnés dans l'énoncé on peut determiner les paramètres pour chaque filtre et les créer ensuite. 
 
+On décide ensuite determiner M_1, W_1, A_1. On utilise les équiations du sujet qui correspondent à w_1 et w_2 puis grâce à la forme de zpk(w_1) on trouve par comparaison les 3 valeurs recherché. On fait de même avec M_2 grâce à zpk(w_2). 
+
 
 ### B. Reference model (5%)
 #### Question 3B.1: Reference model computation (5%)
 
+A faire lundi. 
+
 ### %% C.	Feedback controller design (hinfsyn) (20%)
 #### Question 3C.1: Controller design (10%)
 
+Nous allons construite un controller de rejet/suivi de perturbation. 
+
+On met en forme P et Twz suivant le sujet. Pour S0 on applique la formule donné dans le sujet. De même pour les autres composantes de cette question. 
 
 ## Sources 
 [1] : R. T. Reichert, “Dynamic scheduling of modern-robust-control autopilot designs for missi- les”, IEEE Control Systems, vol. 12, no. 5, pp. 35–42, 1992.

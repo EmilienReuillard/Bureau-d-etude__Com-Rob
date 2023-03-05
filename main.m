@@ -148,7 +148,7 @@ C_i_sc = C_i*C_sc*(1/s);
 %W1 et W2
 %Passe haut
 DC1 = 0.1;
-Freq1 = 4   ;
+Freq1 = 4;
 Mag1 = 3.01;   %dB
 HF1 = 100;      %rad/s 
 W1 = makeweight(DC1, [Freq1, Mag1], HF1);
@@ -186,6 +186,10 @@ A_1 = M_2;
 
 
 %% Question 3B.1: Reference model computation (5%)
+
+% --- - -- -- A faire lundi -- -- - - - -
+
+
 % close all
 
 %Création de la fonction de transfert
