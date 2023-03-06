@@ -85,8 +85,9 @@ Nous cherchons C_i. Pour cela nous utilisons sisotool qui va nous permettre de t
 Selon notre modèle, C_i est compris dans F. Nous considérons une valeur de C_i =1 pour trouver le reste. Nous allons donc modifier F pour modifier la valeur voulue de C_i. Mais nous sommes obligé de modifier aussi la variable C de sisotools de façon à obtenir une Marge de Phase de 60°.
 Nous modifions donc C puis F. Voir capture : 
 
-**** changer les captures -> emilien 
-**** Pas sur que l'on ai modifié C dans l'autre (premier test ) -> Emilien 
+![sisotool](./Ressources/2.3.png)
+
+on peut voir que là où la courbe de gain coupe 0 on à une marge de phase de 60 degrès sur la courbe de phase. Cela convient au cahier des charges. 
 
 Avec cette méthode nous avons trouvé une valeur de F qui nous convient puis nous avons eu C_i en divisant F par C_sc. Aisni nous avons F = 8.0167e+05 et donc C_i = 3,942e+7. 
 
