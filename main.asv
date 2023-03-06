@@ -4,13 +4,10 @@
 
 clear all
 close all
-% Pour chaque question voir le compte rendu pour les explications. 
-
-%% Pensez à bien compiler le fichier Matlab
 
 %% Question 1.1: Flight dynamics (10%)
 
-% Rédigé sur le compte rendu. 
+% Rédigé 
 
 %% Question 1.2: Model construction & analysis (10%)
 %Constantes
@@ -80,6 +77,9 @@ C2 = [  [1 0]
 
 D2 = [0 ; 0];
 
+% C2bis = [ 1 0 ];
+% D2bis = 0;
+
 G_a = ss(A2,B2,C2,D2);
 
 G_a.InputName="u_cmd";
@@ -89,15 +89,18 @@ save G_a;
 
 
 %linearisation
-G_am = linearize('Airframe');  
+G_am = linearize('Airframe');  %Utiliser celui ci quand on utilise G_am
 G_am_zpk = zpk(G_am); 
-%iopzmap(G_am); %Affichage des zeros
+iopzmap(G_am); %Affichage des zeros
 
 
 %% Question 2.1: Damping gain design (5%)
 
-G_ol_q = -G_am(2,1); 
-%rlocus(G_ol_q);
+%approffondir un peu cette section (fait antonin)
+
+G_ol_q = -G_am(2,1)
+%C_q = -0.0266; % pour la courbe du haut
+rlocus(G_ol_q);
 %avec rlocus on a que : C_q = -0.16;
 C_q = -0.16;
 G_cl_q_unsc = linearize("ClosedLoop_Cq");
@@ -111,16 +114,26 @@ C_sc_inv = dcgain(G_cl_q_unsc);
 C_sc = 1/C_sc_inv;
 G=linearize("ClosedLoop_CqCsc");
 %zpk(G);
-%step(G);
+step(G);
+
+%Voir capture 2.2, on converge bien vers 0 mais oscille
 
 %% Question 2.3: Integral gain design (10%)
 
-% C_i = 1;   %arbitraire pour commencer 
+%C = 3.352e-05
+%F = 301.33
+
+% C_i = 1;   %arbitraire
 C_i = 8.0167e+05/C_sc;
 G_ol_nz = linearize("ClosedLoop_CqCscCi");
 zpk(G_ol_nz);
 C_i_sc = C_i*C_sc*(1/s);
 %sisotool( G_ol_nz, 1, C_q, C_i_sc )
+
+%F = 8.0167e+05;   %pour avoir une marge de phase de 60°
+%F = C_i * C_sc
+
+%expliquer la méthode, même si on a pas les résultats
 
 
 %% 3.	Mixed sensitivity design (60%)
@@ -129,12 +142,11 @@ C_i_sc = C_i*C_sc*(1/s);
 
 %% Question 3A.1: Weighting filter discussion (2.5%)
 
-%Voir compte rendu. 
+%Pas de code discuter de W1
 
 %% Question 3A.2: Weighting filter computation (2.5%)
 
 %W1 et W2
-
 %Passe haut
 DC1 = 0.1;
 Freq1 = 4;
@@ -158,7 +170,6 @@ W3 = W1;
 
 % zpk(W1)
 % zpk(W2)
-
 % On en déduit que:
 
 M_1 = 1/100;
@@ -174,16 +185,40 @@ A_2 = w_2/6069;
 M_1 = A_2;
 A_1 = M_2;
 
+
 %% Question 3B.1: Reference model computation (5%)
-%close all 
+close all 
+% --- - -- -- A faire lundi -- -- - - - -
+tau = 0.6
+w_d = 21
 
-tau = 0.6;
-w_d = 21;
-xi_d = 0.8;
-z_m =500;
-T_d = tf([-w_d*w_d*(1/z_m), w_d*w_d],[1, 2*xi_d*w_d, w_d*w_d]);
+%w_d = 0.025
+xi_d = 0.8
 
-%step(T_d);
+ 
+z_m =500
+
+T_d = tf([-w_d*w_d*(1/z_m), w_d*w_d],[1, 2*xi_d*w_d, w_d*w_d])
+
+step(T_d)
+
+%% uu
+% close all
+
+%Création de la fonction de transfert
+% non-minimum phase zero ??????????????????
+
+wd = 15;
+ksid = 0.7;
+zm = 50;    %valeur de y1 en boucle ouverte du missile
+% avec ces valeures, on a une réponse en 0.17s et un dépassement qui ne vas
+% pas au dessus de 1.05
+
+Td = tf([-(wd*wd)/zm , (wd*wd)],[1 , 2*ksid*wd , wd*wd ]);
+
+% step(Td)
+
+% tester fmicon plus tard pour avoir les trucs exacts
 
 %% C.	Feedback controller design (hinfsyn) (20%)
 
@@ -196,14 +231,10 @@ T0 = 1 - S0;
 
 P = [   [W1     ,   -W1*G  ]
         [0      ,   W2     ]
-        [W3*T_d  ,   -W3*G  ]
+        [W3*Td  ,   -W3*G  ]
         [1      ,   -G     ]  ];
 
-Twz = [W1*S0 ; W2*C_e*S0 ; W3*(T_d-T0)];
-
-
-%% Fin
-% Pour chaque question voir le compte rendu pour les explications. 
+Twz = [W1*S0 ; W2*C_e*S0 ; W3*(Td-T0)];
 
 
 

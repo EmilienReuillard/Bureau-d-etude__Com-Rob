@@ -118,7 +118,20 @@ On décide ensuite determiner M_1, W_1, A_1. On utilise les équiations du sujet
 ### B. Reference model (5%)
 #### Question 3B.1: Reference model computation (5%)
 
-A faire lundi. 
+![Réponse en step de T_d](./Ressources/3B.1.png)
+
+Voici la réponse à un échelon du filtre modélisé. 
+
+Par soucis de non compréhension de la signification de z_m nous l'avons utilisé dans les varibles à modifier pour obtenir le filtre correspondant eu cahier des charges. 
+
+Ainsi nous avons procédé par tatonnement pour trouver un par un les valeurs recherché. 
+
+La filtre à donc un temps de réponse à 5% de 0.18 secondes et un dépassement maximal ne dépassant pas 5% de la valeurs final comme indiqué dans le cahier des charges. 
+
+![zpk(T_d)](./Ressources/zpk(T_d).png)
+
+Voici la forme final du filtre. 
+
 
 ### %% C.	Feedback controller design (hinfsyn) (20%)
 #### Question 3C.1: Controller design (10%)
